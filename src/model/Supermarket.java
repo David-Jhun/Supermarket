@@ -113,7 +113,40 @@ public class Supermarket {
 		return deleted;
 	}
 	
-	public void addProvider() 
+	public void addProvider(String documentType, String documentNumber, String name, String email, String cellphone, String address, int quantityOrdered, double price) 
+	{
+		Provider provider = new Provider(documentType, documentNumber, name, email, cellphone, address, quantityOrdered, price);
+		if( firstProvider == null ) {
+			firstProvider = provider;
+		}else {
+			Provider temporal = firstProvider;
+			while( temporal.getNext() != null ) {
+				temporal = temporal.getNext();
+			}
+			temporal.setNext(provider);
+			provider.setPrevious(temporal);
+		}
+	}
+	
+	public Provider searchProvider( String name )
+	{
+		Provider pro = null;
+		if( firstProvider.getName().equalsIgnoreCase(name) ) {
+			pro = firstProvider;
+		}else {
+			Provider temporal = firstProvider;
+			while( temporal != null && !(temporal.getName().equalsIgnoreCase(name)) ) {
+				temporal = temporal.getNext();
+			}
+			if( temporal != null ) 
+			{
+				pro = temporal;
+			}
+		}
+		return pro;
+	}
+	
+	public boolean deleteProvider( String name )
 	{
 		
 	}
@@ -161,6 +194,24 @@ public class Supermarket {
 	public Candidate searchCandidate( String name )
 	{
 		return rootCandidate.search(name);
+	}
+	
+	public int getWeightCandidateTree()
+	{
+		return rootCandidate.getWeight();
+	}
+	
+	public ArrayList<Candidate> candidateList()
+	{
+		if( rootCandidate == null )
+			return null;
+		else
+		{
+			ArrayList<Candidate> list = new ArrayList<Candidate>();
+			rootCandidate.inOrden(list);
+			return list;
+		}
+			
 	}
 	
 	public void addTv(String name, String brand, double price, String line, String resolution, boolean smartv, boolean wifi) 
