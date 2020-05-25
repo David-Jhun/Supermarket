@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Candidate extends Worker implements Comparable<Candidate>{
 	
 	private int yearsOfExperience;
@@ -34,6 +36,54 @@ public class Candidate extends Worker implements Comparable<Candidate>{
 
 	public void setRightSon(Candidate rightSon) {
 		this.rightSon = rightSon;
+	}
+	
+	public void add( Candidate son )
+	{
+		if( compareTo(son) == 0 )
+			throw new NullPointerException();
+		
+		if( compareTo(son) > 0 ) {
+			if( leftSon == null )
+				leftSon = son;
+			else
+				leftSon.add(son);
+		}else {
+			if( rightSon == null )
+				rightSon = son;
+			else
+				rightSon.add(son);
+		}
+		
+	}
+	
+	public Candidate search( String name ) 
+	{
+		if( getName().equalsIgnoreCase(name) )
+			return this;
+		else if( getName().compareToIgnoreCase(name) > 0 )
+			return (leftSon == null) ? null : leftSon.search(name);
+		else
+			return (rightSon == null) ? null : rightSon.search(name);
+			
+	}
+	
+	public int getWeight()
+	{
+		int p1 = (leftSon == null) ? 0 : leftSon.getWeight();
+		int p2 = (rightSon == null) ? 0 : rightSon.getWeight();
+		return 1 + p1 + p2;
+	}
+	
+	public void inOrden( ArrayList<Candidate> list )
+	{
+		if( leftSon != null )
+			leftSon.inOrden(list);
+		
+		list.add(this);
+		
+		if( rightSon != null )
+			rightSon.inOrden(list);
 	}
 
 	@Override

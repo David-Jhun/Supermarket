@@ -118,6 +118,51 @@ public class Supermarket {
 		
 	}
 	
+	public void addManagement(String documentType, String documentNumber, String name, String email, String cellphone, String address, String position)
+	{
+		Management m = new Management(documentType, documentNumber, name, email, cellphone, address, position);
+		if( rootManagement == null )
+			rootManagement = m;
+		else 
+			rootManagement.add(m);
+	}
+	
+	public Management searchManagement( String name )
+	{
+		return rootManagement.search(name);
+	}
+	
+	public int getWeigtManagementTree()
+	{
+		return rootManagement.getWeight();
+	}
+	
+	public ArrayList<Management> managementList()
+	{
+		if( rootManagement == null )
+			return null;
+		else {
+			ArrayList<Management> list = new ArrayList<Management>();
+			rootManagement.inOrden(list);
+			return list;
+		}
+			
+	}
+	
+	public void addCandidate(String documentType, String documentNumber, String name, String email, String cellphone, String address, int yearsOfExperience)
+	{
+		Candidate son = new Candidate(documentType, documentNumber, name, email, cellphone, address, yearsOfExperience);
+		if( rootCandidate == null )
+			rootCandidate = son;
+		else
+			rootCandidate.add(son);
+	}
+	
+	public Candidate searchCandidate( String name )
+	{
+		return rootCandidate.search(name);
+	}
+	
 	public void addTv(String name, String brand, double price, String line, String resolution, boolean smartv, boolean wifi) 
 	{
 		Television tv = new Television(name, brand, price, line, resolution, smartv, wifi);

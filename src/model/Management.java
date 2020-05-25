@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Management extends Worker implements Salary, Comparable<Management>{
 	
 	private double salary;
@@ -39,6 +41,57 @@ public class Management extends Worker implements Salary, Comparable<Management>
 
 	public void setRightSon(Management rightSon) {
 		this.rightSon = rightSon;
+	}
+	
+	public void add( Management son ) 
+	{
+		if( getName().compareToIgnoreCase(son.getName()) == 0 )
+			throw new NullPointerException();
+		
+		if( compareTo(son) > 0 )
+		{
+			if(leftSon == null)
+				leftSon = son;
+			else
+				leftSon.add(son);
+		}
+		else
+		{
+			if( rightSon == null )
+				rightSon = son;
+			else
+				rightSon.add(son);
+		}
+			
+	}
+	
+	public Management search( String name )
+	{
+		if( getName().equalsIgnoreCase(name) )
+			return this;
+		else if( getName().compareToIgnoreCase(name) > 0 )
+			return (leftSon == null) ? null: leftSon.search(name);
+		else
+			return (rightSon == null) ? null: rightSon.search(name);
+	}
+	
+	public int getWeight()
+	{
+		int p1 = (leftSon == null) ? 0 : leftSon.getWeight();
+		int p2 = (rightSon == null) ? 0 : rightSon.getWeight();
+		return 1 + p1 + p2;
+	}
+	
+	public void inOrden( ArrayList<Management> list )
+	{
+		if( leftSon != null )
+			leftSon.inOrden(list);
+		
+		list.add(this);
+		
+		if( rightSon != null )
+			rightSon.inOrden(list);
+			
 	}
 
 	@Override
