@@ -1,6 +1,6 @@
 package model;
 
-public class Laptop extends HouseholdAppliance{
+public class Laptop extends HouseholdAppliance implements Component{
 	
 	private String processor;
 	private int ram;
@@ -41,6 +41,12 @@ public class Laptop extends HouseholdAppliance{
 		m += "\nStorage type: " + storageType;
 		m += "\nAmount of storage: " + amountStorage;
 		return m;
+	}
+
+	@Override
+	public double calculatePrice() 
+	{
+		return (double)getPrice() * amountStorage;
 	}
 	
 }
