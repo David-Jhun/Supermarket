@@ -1,6 +1,6 @@
 package model;
 
-public class Television extends HouseholdAppliance{
+public class Television extends HouseholdAppliance implements Comparable<Television>{
 	
 	private String resolution;
 	private boolean smartv;
@@ -34,6 +34,16 @@ public class Television extends HouseholdAppliance{
 		m += "\nSmart TV: " + "Yes";
 		m += "\nWifi: " + "Yes";
 		return m;
+	}
+
+	@Override
+	public int compareTo(Television tv) {
+		if( getName().compareToIgnoreCase(tv.getName()) < 0 )
+			return -1;
+		else if( getName().compareToIgnoreCase(tv.getName()) > 0 )
+			return 1;
+		else
+			return (int)(getPrice() - tv.getPrice());
 	}
 	
 }
