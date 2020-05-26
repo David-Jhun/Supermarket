@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import exception.ElementRepeatedException;
+
 public class Management extends Worker implements Salary, Serializable, Comparable<Management>{
 	
 	private double salary;
@@ -44,10 +46,10 @@ public class Management extends Worker implements Salary, Serializable, Comparab
 		this.rightSon = rightSon;
 	}
 	
-	public void add( Management son ) 
+	public void add( Management son ) throws ElementRepeatedException 
 	{
 		if( getName().compareToIgnoreCase(son.getName()) == 0 )
-			throw new NullPointerException();
+			throw new ElementRepeatedException("This element already exists.");
 		
 		if( compareTo(son) > 0 )
 		{

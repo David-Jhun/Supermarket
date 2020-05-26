@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane prefHeight="37.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
@@ -36,8 +35,8 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Show">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Show a graphic" />
-                        <MenuItem mnemonicParsing="false" text="Show second graphic" />
+                      <MenuItem mnemonicParsing="false" onAction="#showChart1" text="Show chart 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#showChart2" text="Show chart 2" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Random ">
@@ -48,7 +47,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Load">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#loadCandidates" text="Load candidates." />
+                      <MenuItem mnemonicParsing="false" onAction="#loadClients" text="Load Clients" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Search a product">
@@ -59,7 +58,7 @@
                   </Menu>
                   <Menu mnemonicParsing="false" text="Generate">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#generateAReport" text="Generate a report" />
+                      <MenuItem mnemonicParsing="false" onAction="#generateALaptopReport" text="Generate a laptop report" />
                     </items>
                   </Menu>
                </menus>

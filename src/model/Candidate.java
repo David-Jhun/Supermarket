@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import exception.ElementRepeatedException;
+
 public class Candidate extends Worker implements Serializable, Comparable<Candidate>{
 	
 	private int yearsOfExperience;
@@ -39,10 +41,10 @@ public class Candidate extends Worker implements Serializable, Comparable<Candid
 		this.rightSon = rightSon;
 	}
 	
-	public void add( Candidate son )
+	public void add( Candidate son ) throws ElementRepeatedException
 	{
 		if( compareTo(son) == 0 )
-			throw new NullPointerException();
+			throw new ElementRepeatedException("This element already exits.");
 		
 		if( compareTo(son) > 0 ) {
 			if( leftSon == null )

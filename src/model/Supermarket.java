@@ -1,15 +1,18 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import exception.ElementRepeatedException;
 
 public class Supermarket {
 	
@@ -129,6 +132,20 @@ public class Supermarket {
 		return deleted;
 	}
 	
+	public ArrayList<Client> getArrayListClients()
+	{
+		ArrayList<Client> clients = new ArrayList<Client>();
+		if( firstClient != null ) {
+			Client temporal = firstClient;
+			while( temporal != null )
+			{
+				clients.add(temporal);
+				temporal = temporal.getNext();
+			}
+		}
+		return clients;
+	}
+	
 	public void addProvider(String documentType, String documentNumber, String name, String email, String cellphone, String address, int quantityOrdered, double price) 
 	{
 		Provider provider = new Provider(documentType, documentNumber, name, email, cellphone, address, quantityOrdered, price);
@@ -202,7 +219,21 @@ public class Supermarket {
 		return deleted;
 	}
 	
-	public void addManagement(String documentType, String documentNumber, String name, String email, String cellphone, String address, String position)
+	public ArrayList<Provider> getArrayListProviders()
+	{
+		ArrayList<Provider> providers = new ArrayList<Provider>();
+		if( firstProvider != null ) {
+			Provider temporal = firstProvider;
+			while( temporal != null ) {
+				providers.add(temporal);
+				temporal = temporal.getNext();
+			}
+		}
+		return providers;
+		
+	}
+	
+	public void addManagement(String documentType, String documentNumber, String name, String email, String cellphone, String address, String position) throws ElementRepeatedException
 	{
 		Management m = new Management(documentType, documentNumber, name, email, cellphone, address, position);
 		if( rootManagement == null )
@@ -233,7 +264,7 @@ public class Supermarket {
 			
 	}
 	
-	public void addCandidate(String documentType, String documentNumber, String name, String email, String cellphone, String address, int yearsOfExperience)
+	public void addCandidate(String documentType, String documentNumber, String name, String email, String cellphone, String address, int yearsOfExperience) throws ElementRepeatedException
 	{
 		Candidate son = new Candidate(documentType, documentNumber, name, email, cellphone, address, yearsOfExperience);
 		if( rootCandidate == null )
@@ -594,6 +625,21 @@ public class Supermarket {
 			}
 		}
 		return deleted;
+	}
+	
+	public void randomClients() throws IOException 
+	{
+		File file = new File("files//Random.txt");
+		FileReader fr = new FileReader(file);
+		BufferedReader reader = new BufferedReader(fr);
+		String line = "";
+		do {
+			line = reader.readLine();
+			String[] data = line.split(",");
+			addClient(data[0], data[1], data[2], data[3], data[4]);
+		}while( line != null );
+		fr.close();
+		reader.close();
 	}
 	
 	public void loadFiles() throws FileNotFoundException, IOException, ClassNotFoundException

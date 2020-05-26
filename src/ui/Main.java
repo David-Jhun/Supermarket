@@ -68,6 +68,7 @@ public class Main extends Application{
 					alert.setContentText(e.getMessage());
 					alert.show();
 				}
+				System.exit(0);
 			}
 		});
 		primaryStage.show();
