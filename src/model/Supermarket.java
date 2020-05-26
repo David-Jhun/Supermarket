@@ -357,22 +357,50 @@ public class Supermarket {
 		laptops.add(laptop);
 	}
 	
-	public Laptop searchLaptop( String name )
+	public Laptop binarySearchLaptopByName( String name ) 
 	{
-		Laptop laptop = null;
-		boolean founded = false;
-		if( !(laptops.isEmpty()) )
+		insertionSortLaptopsByName();
+		Laptop searched = null;
+		boolean found = false;
+		int start = 0;
+		int end = laptops.size() - 1;
+		while( start <= end && !found )
 		{
-			for( int i = 0; i < laptops.size() && !founded ; i++ )
+			int mid = (start + end) / 2;
+			if( laptops.get(mid).getName().equalsIgnoreCase(name) )
 			{
-				if(laptops.get(i).getName().equalsIgnoreCase(name))
-				{
-					laptop = laptops.get(i);
-					founded = true;
-				}
+				found = true;
+				searched = laptops.get(mid);
 			}
+			else if( laptops.get(mid).getName().compareToIgnoreCase(name) > 0 )
+				end = mid - 1;
+			else
+				start = mid + 1;
 		}
-		return laptop;
+		return searched;
+	}
+	
+	public Laptop binarySearchLaptopByRam( int ram ) 
+	{
+		bubbleSortLaptopsByRam();
+		Laptop searched = null;
+		boolean found = false;
+		int start = 0;
+		int end = laptops.size() - 1;
+		while( start <= end && !found )
+		{
+			int mid = (start + end) / 2;
+			if( laptops.get(mid).getRam() == ram )
+			{
+				found = true;
+				searched = laptops.get(mid);
+			}
+			else if( laptops.get(mid).getRam() > ram )
+				end = mid - 1;
+			else
+				start = mid + 1;
+		}
+		return searched;
 	}
 
 	public boolean deleteLaptop( String name )
