@@ -148,7 +148,42 @@ public class Supermarket {
 	
 	public boolean deleteProvider( String name )
 	{
-		
+		boolean deleted = false;
+		if( firstProvider.getName().equalsIgnoreCase(name) ) {
+			if( firstProvider.getNext() == null )
+			{
+				firstProvider = null;
+				deleted = true;
+			}
+			else if( firstProvider.getNext() != null )
+			{
+				firstProvider = firstProvider.getNext();
+				deleted = true;
+			}
+		}
+		else
+		{
+			Provider previous = null;
+			Provider current = firstProvider;
+			while( current != null && !(current.getName().equalsIgnoreCase(name)))
+			{
+				previous = current;
+				current = current.getNext();
+			}
+			if( current != null )
+			{
+				if( current.getNext() == null )
+				{
+					previous.setNext(current.getNext());
+				}
+				else if( current.getNext() != null )
+				{
+					previous.setNext(current.getNext());
+					current.getNext().setPrevious(previous);
+				}
+			}
+		}
+		return deleted;
 	}
 	
 	public void addManagement(String documentType, String documentNumber, String name, String email, String cellphone, String address, String position)
@@ -220,20 +255,25 @@ public class Supermarket {
 		televisions.add(tv);
 	}
 	
-	public Television searchTv( String name ) 
+	public Television binarySearchTv( String name ) 
 	{
+		insertionSortTvs();
 		Television searched = null;
-		boolean founded = false;
-		if( !(televisions.isEmpty()) ) 
+		boolean found = false;
+		int start = 0;
+		int end = televisions.size() - 1;
+		while( start <= end && !found )
 		{
-			for( int i = 0; i < televisions.size() && !founded ; i++ )
+			int mid = (start + end) / 2;
+			if( televisions.get(mid).getName().equalsIgnoreCase(name) )
 			{
-				if( televisions.get(i).getName().equalsIgnoreCase(name) )
-				{
-					searched = televisions.get(i);
-					founded = true;
-				}
+				found = true;
+				searched = televisions.get(mid);
 			}
+			else if( televisions.get(mid).getName().compareToIgnoreCase(name) > 0 )
+				end = mid - 1;
+			else
+				start = mid + 1;
 		}
 		return searched;
 	}
@@ -257,12 +297,58 @@ public class Supermarket {
 	
 	public void bubbleSortTvs()
 	{
-		
+		for( int i = 0; i < televisions.size(); i++ )
+		{
+			for( int j = 0 ; j < televisions.size() - 1 - i; j++ )
+			{
+				if( televisions.get(j).compareTo(televisions.get(j + 1)) > 0 )
+				{
+					Television temporal = televisions.get(j);
+					televisions.set(j, televisions.get(j + 1));
+					televisions.set(j + 1, temporal);
+				}
+			}
+		}
 	}
 	
 	public void selectionSortTvs() 
 	{
-		
+		for( int i = 0; i < televisions.size() ; i++ )
+		{
+			Television minor = televisions.get(i);
+			int index = i;
+			for( int j = i + 1 ; j < televisions.size(); j++ )
+			{
+				if( minor.compareTo(televisions.get(j)) > 0 )
+				{
+					minor = televisions.get(j);
+					index = j;
+				}
+			}
+			Television temporal = televisions.get(i);
+			televisions.set(i, minor);
+			televisions.set(index, temporal);
+		}
+	}
+	
+	public void insertionSortTvs()
+	{
+		for( int i = 0 ; i < televisions.size() ; i++ )
+		{
+			Television insert = televisions.get(i);
+			boolean done = false;
+			for( int j = i ; j > 0 && !done ; j-- )
+			{
+				Television current = televisions.get(j - 1);
+				if( current.compareTo(insert) > 0 )
+				{
+					televisions.set(j, current);
+					televisions.set(j - 1, insert);
+				}
+				else
+					done = true;
+			}
+		}
 	}
 	
 	public void addLaptop(String name, String brand, double price, String line, String processor, int ram, String storageType, int amountStorage)
@@ -306,5 +392,60 @@ public class Supermarket {
 		return deleted;
 	}
 	
+	public void insertionSortLaptopsByName()
+	{
+		for( int i = 0 ; i < laptops.size() ; i++ )
+		{
+			Laptop insert = laptops.get(i);
+			boolean done = false;
+			for( int j = i ; j > 0 && !done ; j-- )
+			{
+				Laptop current = laptops.get(j - 1);
+				if( current.compareTo(insert) > 0 )
+				{
+					laptops.set(j, current);
+					laptops.set(j - 1, insert);
+				}
+				else
+					done = true;
+			}
+		}
+	}
+	
+	public void bubbleSortLaptopsByRam()
+	{
+		for( int i = 0; i < laptops.size(); i++ )
+		{
+			for( int j = 0 ; j < laptops.size() - 1 - i; j++ )
+			{
+				if( laptops.get(j).getRam() > laptops.get(j + 1).getRam() )
+				{
+					Laptop temporal = laptops.get(j);
+					laptops.set(j, laptops.get(j + 1));
+					laptops.set(j + 1, temporal);
+				}
+			}
+		}
+	}
+	
+	public void selectionSortLaptops() 
+	{
+		for( int i = 0; i < laptops.size() ; i++ )
+		{
+			Laptop minor = laptops.get(i);
+			int index = i;
+			for( int j = i + 1 ; j < laptops.size(); j++ )
+			{
+				if( minor.compareTo(laptops.get(j)) > 0 )
+				{
+					minor = laptops.get(j);
+					index = j;
+				}
+			}
+			Laptop temporal = laptops.get(i);
+			laptops.set(i, minor);
+			laptops.set(index, temporal);
+		}
+	}
 	
 }

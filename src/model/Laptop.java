@@ -1,6 +1,6 @@
 package model;
 
-public class Laptop extends HouseholdAppliance implements Component{
+public class Laptop extends HouseholdAppliance implements Component, Comparable<Laptop>{
 	
 	private String processor;
 	private int ram;
@@ -47,6 +47,18 @@ public class Laptop extends HouseholdAppliance implements Component{
 	public double calculatePrice() 
 	{
 		return (double)getPrice() * amountStorage;
+	}
+
+	@Override
+	public int compareTo(Laptop o) {
+		
+		if( getName().compareToIgnoreCase(o.getName()) < 0 )
+			return -1;
+		else if( getName().compareToIgnoreCase(o.getName()) > 0 )
+			return 1;
+		else
+			return ram - o.ram;
+					
 	}
 	
 }
