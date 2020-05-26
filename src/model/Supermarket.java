@@ -1,9 +1,12 @@
 package model;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -593,15 +596,82 @@ public class Supermarket {
 		return deleted;
 	}
 	
-	public void loadSerializeFiles()
+	public void loadFiles() throws FileNotFoundException, IOException, ClassNotFoundException
 	{
-		
+		loadClients();
+		loadProviders();
+		loadManagers();
+		loadCandidates();
+		loadTvs();
+		loadLaptops();
+		loadMeat();
+	}
+	
+	public void loadClients() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//clients.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		firstClient = (Client) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadProviders() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//providers.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		firstProvider = (Provider) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadManagers() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//managers.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		rootManagement = (Management) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadCandidates() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//candidates.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		rootCandidate = (Candidate) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadTvs() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//tvs.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		televisions = (ArrayList<Television>) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadLaptops() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//laptops.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		laptops = (ArrayList<Laptop>) ois.readObject();
+		ois.close();
+	}
+	
+	public void loadMeat() throws FileNotFoundException, IOException, ClassNotFoundException
+	{
+		File file = new File("files//meat.txt");
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+		meats = (ArrayList<Meat>) ois.readObject();
+		ois.close();
 	}
 	
 	public void saveFiles()throws FileNotFoundException, IOException
 	{
 		serializeClients();
 		serializeProviders();
+		serializeManagers();
+		serializeCandidates();
+		serializeTvs();
+		serializeLaptops();
+		serializeMeat();
 	}
 	
 	public void serializeClients() throws FileNotFoundException, IOException
