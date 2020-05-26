@@ -185,21 +185,6 @@ public class UniversalController implements Initializable{
     	Parent searchLaptop = loader.load();
     	mainPanel.setCenter(searchLaptop);
     }
-
-    @FXML
-    public void searchATv(ActionEvent event) {
-
-    }
-
-    @FXML
-    void showTheDoomClock(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void showTheProgressBar(ActionEvent event) {
-
-    }
     
     //------------------------------------------------------------------------
     @FXML

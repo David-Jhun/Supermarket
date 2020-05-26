@@ -39,12 +39,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#showChart2" text="Show chart 2" />
                     </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Random ">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#showTheDoomClock" text="Show a doomed clock " />
-                      <MenuItem mnemonicParsing="false" onAction="#showTheProgressBar" text="Show a cool menuBar" />
-                    </items>
-                  </Menu>
                   <Menu mnemonicParsing="false" text="Load">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#loadClients" text="Load Clients" />
@@ -53,7 +47,6 @@
                   <Menu mnemonicParsing="false" text="Search a product">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#searchALaptop" text="Search a laptop." />
-                        <MenuItem mnemonicParsing="false" onAction="#searchATv" text="Search a tv." />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Generate">
