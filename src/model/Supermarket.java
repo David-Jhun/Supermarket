@@ -16,6 +16,8 @@ public class Supermarket {
 	
 	private ArrayList<Laptop> laptops;
 	
+	private ArrayList<Meat> meats;
+	
 	public Supermarket() {
 		firstClient = null;
 		firstProvider = null;
@@ -23,6 +25,7 @@ public class Supermarket {
 		rootCandidate = null;
 		televisions = new ArrayList<Television>();
 		laptops = new ArrayList<Laptop>();
+		meats = new ArrayList<Meat>();
 	}
 
 	public Client getFirstClient() {
@@ -47,6 +50,10 @@ public class Supermarket {
 
 	public ArrayList<Laptop> getLaptops() {
 		return laptops;
+	}
+	
+	public ArrayList<Meat> getMeats(){
+		return meats;
 	}
 	
 	public void addClient(String documentType, String documentNumber, String name, String email, String address) {
@@ -474,6 +481,116 @@ public class Supermarket {
 			laptops.set(i, minor);
 			laptops.set(index, temporal);
 		}
+	}
+	
+	public void addMeat(String code, String name, double price, int inventory, double weight, String animal)
+	{
+		Meat meat = new Meat(code, name, price, inventory, weight, animal);
+		meats.add(meat);
+	}
+	
+	public void insertionSortMeatsByName()
+	{
+		for( int i = 0 ; i < meats.size() ; i++ )
+		{
+			Meat insert = meats.get(i);
+			boolean done = false;
+			for( int j = i ; j > 0 && !done ; j-- )
+			{
+				Meat current = meats.get(j - 1);
+				if( current.compareTo(insert) > 0 )
+				{
+					meats.set(j, current);
+					meats.set(j - 1, insert);
+				}
+				else
+					done = true;
+			}
+		}
+	}
+	
+	public Meat binarySearchMeatByName( String name ) 
+	{
+		insertionSortMeatsByName();
+		Meat searched = null;
+		boolean found = false;
+		int start = 0;
+		int end = meats.size() - 1;
+		while( start <= end && !found )
+		{
+			int mid = (start + end) / 2;
+			if( meats.get(mid).getName().equalsIgnoreCase(name) )
+			{
+				found = true;
+				searched = meats.get(mid);
+			}
+			else if( meats.get(mid).getName().compareToIgnoreCase(name) > 0 )
+				end = mid - 1;
+			else
+				start = mid + 1;
+		}
+		return searched;
+	}
+	
+	public void bubbleSortMeatsByInventory()
+	{
+		for( int i = 0; i < meats.size(); i++ )
+		{
+			for( int j = 0 ; j < meats.size() - 1 - i; j++ )
+			{
+				if( meats.get(j).getInventory() > meats.get(j + 1).getInventory() )
+				{
+					Meat temporal = meats.get(j);
+					meats.set(j, meats.get(j + 1));
+					meats.set(j + 1, temporal);
+				}
+			}
+		}
+	}
+	
+	public Meat binarySearchMeatByInventory( int inventory ) 
+	{
+		bubbleSortMeatsByInventory();
+		Meat searched = null;
+		boolean found = false;
+		int start = 0;
+		int end = meats.size() - 1;
+		while( start <= end && !found )
+		{
+			int mid = (start + end) / 2;
+			if( meats.get(mid).getInventory() == inventory )
+			{
+				found = true;
+				searched = meats.get(mid);
+			}
+			else if( meats.get(mid).getInventory() > inventory )
+				end = mid - 1;
+			else
+				start = mid + 1;
+		}
+		return searched;
+	}
+	
+	public boolean deleteMeat( String name ) 
+	{
+		boolean deleted = false;
+		if( !(meats.isEmpty()) )
+		{
+			for( int i = 0; i < meats.size() && !deleted ; i++)
+			{
+				if( meats.get(i).getName().equalsIgnoreCase(name) )
+				{
+					meats.remove(i);
+					deleted = true;
+				}
+			}
+		}
+		return deleted;
+	}
+	
+	public void printAllComputers()
+	{
+		
 	}
 	
 }
