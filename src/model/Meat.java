@@ -1,6 +1,8 @@
 package model;
 
-public class Meat extends Product implements Comparable<Meat>{
+import java.io.Serializable;
+
+public class Meat extends Product implements Serializable, Comparable<Meat>{
 	
 	private String animal;
 	

@@ -1,6 +1,8 @@
 package model;
 
-public class Laptop extends HouseholdAppliance implements Component, Comparable<Laptop>{
+import java.io.Serializable;
+
+public class Laptop extends HouseholdAppliance implements Serializable, Component, Comparable<Laptop>{
 	
 	private String processor;
 	private int ram;

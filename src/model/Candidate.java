@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Candidate extends Worker implements Comparable<Candidate>{
+public class Candidate extends Worker implements Serializable, Comparable<Candidate>{
 	
 	private int yearsOfExperience;
 	

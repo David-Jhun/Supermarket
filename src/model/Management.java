@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Management extends Worker implements Salary, Comparable<Management>{
+public class Management extends Worker implements Salary, Serializable, Comparable<Management>{
 	
 	private double salary;
 	private String position;

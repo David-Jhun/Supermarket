@@ -1,6 +1,8 @@
 package model;
 
-public class Television extends HouseholdAppliance implements Comparable<Television>{
+import java.io.Serializable;
+
+public class Television extends HouseholdAppliance implements Serializable, Comparable<Television>{
 	
 	private String resolution;
 	private boolean smartv;

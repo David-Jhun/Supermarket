@@ -1,6 +1,8 @@
 package model;
 
-public class Provider extends Worker implements Commodity{
+import java.io.Serializable;
+
+public class Provider extends Worker implements Commodity, Serializable{
 	
 	private String product;
 	private int quantityOrdered;

@@ -1,5 +1,11 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Supermarket {
@@ -253,7 +259,6 @@ public class Supermarket {
 			rootCandidate.inOrden(list);
 			return list;
 		}
-			
 	}
 	
 	public void addTv(String name, String brand, double price, String line, String resolution, boolean smartv, boolean wifi) 
@@ -588,9 +593,88 @@ public class Supermarket {
 		return deleted;
 	}
 	
-	public void printAllComputers()
+	public void loadSerializeFiles()
 	{
 		
+	}
+	
+	public void saveFiles()throws FileNotFoundException, IOException
+	{
+		serializeClients();
+		serializeProviders();
+	}
+	
+	public void serializeClients() throws FileNotFoundException, IOException
+	{
+		File file = new File("files//clients.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(firstClient);
+		oos.close();
+	}
+	
+	public void serializeProviders() throws FileNotFoundException, IOException
+	{
+		File file = new File("files//providers.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(firstProvider);
+		oos.close();
+	}
+	
+	public void serializeManagers()throws FileNotFoundException, IOException
+	{
+		File file = new File("files//managers.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(rootManagement);
+		oos.close();
+	}
+	
+	public void serializeCandidates()throws FileNotFoundException, IOException
+	{
+		File file = new File("files//candidates.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(rootCandidate);
+		oos.close();
+	}
+	
+	public void serializeTvs()throws FileNotFoundException, IOException
+	{
+		File file = new File("files//tvs.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(televisions);
+		oos.close();
+	}
+	
+	public void serializeLaptops()throws FileNotFoundException, IOException
+	{
+		File file = new File("files//laptops.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(laptops);
+		oos.close();
+	}
+	
+	public void serializeMeat()throws FileNotFoundException, IOException
+	{
+		File file = new File("files//meat.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+		oos.writeObject(meats);
+		oos.close();
+	}
+	
+	public void printAllComputers() throws FileNotFoundException
+	{
+		File file = new File("files//Laptops-report.txt");
+		PrintWriter writer = new PrintWriter(file);
+		if( !(laptops.isEmpty()) ) 
+		{
+			for( int i = 0 ; i < laptops.size() ; i++ ) 
+			{
+				writer.println();
+				writer.println(laptops.get(i).getName());
+				writer.println(laptops.get(i).calculatePrice());
+				writer.println();
+			}
+		}
+		writer.close();
 	}
 	
 }
