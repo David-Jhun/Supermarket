@@ -1,4 +1,4 @@
-# # Supermercado SuperInter.
+# Supermercado SuperInter.
 ___
 ### Description.
 This project is an early version of the software of a supermarket that is being planned to open on a new town. Also,
